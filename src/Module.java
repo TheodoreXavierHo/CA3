@@ -10,8 +10,6 @@ public class Module {
     private ArrayList<Assessment> assessments;
 
     public void listTest() {
-        this.assessments.add();
-
         for (int x = 0; x <= assessments.size(); x++) {
             System.out.println(assessments.get(x));
         }
