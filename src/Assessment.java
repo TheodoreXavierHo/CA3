@@ -31,20 +31,18 @@ public class Assessment {
         this.description = description;
     }
 
-    public Module getModule() {
-        return module;
-    }
-
-    public void setModule(Module module) {
-        this.module = module;
-    }
-
     public double getMarks() {
         return marks;
     }
 
     public void setMarks(double marks) {
+        if (marks < 0) {
+            throw new IllegalArgumentException("Marks set is less than 0. PLease enter a value above 0.");
+        } else if (this.totalMarks < marks) {
+            this.marks = this.totalMarks;
+        } else {
         this.marks = marks;
+        }
     }
 
     public double getTotalMarks() {
@@ -52,11 +50,15 @@ public class Assessment {
     }
 
     public void setTotalMarks(double totalMarks) {
-        this.totalMarks = totalMarks;
+        if (totalMarks < 0) {
+            throw new IllegalArgumentException("Total Marks is either less than 0 PLease enter a value above 0.");
+        } else {
+            this.totalMarks = totalMarks;
+        }
     }
 
     public double getWeightage() {
-        return weightage;
+        return  ((this.marks/this.totalMarks) * weightage);
     }
 
     public void setWeightage(double weightage) {
