@@ -1,8 +1,5 @@
 import java.util.ArrayList;
 
-class Test {
-    private ArrayList<Module> module = new ArrayList<>();
-}
 public class Module {
     private String name; // Name of the Module
     private String moduleCode; // The module code of the Module
@@ -26,6 +23,12 @@ public class Module {
         return overallMarks;
     }
 
+    public void setAssessments(ArrayList<Assessment> assessments) {
+        this.assessments = assessments;
+    }
+}
+
+/* Test Code.
     public static void main(String[] args) {
         Module test = new Module("TestModule", "D927", "Des1", 12);
 
@@ -68,12 +71,5 @@ public class Module {
             System.out.println(assessment.getName() + " - " + assessment.getDescription()
                     + " - " + assessment.getTotalMarks());
         });
-
-        System.out.println();
-
-        Test test1 = new Test();
     }
-
-}
-
-// Test Code.
+ */
