@@ -72,7 +72,6 @@ public class Module {
         System.out.println();
 
         Test test1 = new Test();
-        test1.
     }
 
 }
