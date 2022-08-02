@@ -6,10 +6,11 @@ public class Assessment {
     private double totalMarks; // Total possible marks for this Assessment
     private double weightage; // The percentage of marks (out of the overall) that this Assessment carries
 
-    public Assessment(String name, String description, double totalMarks) {
+    public Assessment(String name, String description, double totalMarks, double weightage) {
         this.name = name;
         this.description = description;
         this.totalMarks = totalMarks;
+        this.weightage = weightage;
     }
     public double getWeightedMarks() {
         return this.marks/this.totalMarks;
@@ -57,8 +58,12 @@ public class Assessment {
         }
     }
 
-    public double getWeightage() {
+    public double getWeightageMarks() {
         return  ((this.marks/this.totalMarks) * weightage);
+    }
+
+    public double getWeightage() {
+        return weightage;
     }
 
     public void setWeightage(double weightage) {

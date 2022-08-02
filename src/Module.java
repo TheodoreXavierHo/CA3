@@ -26,6 +26,21 @@ public class Module {
     public void setAssessments(ArrayList<Assessment> assessments) {
         this.assessments = assessments;
     }
+
+    public void getAllAssessments() {
+        this.assessments.forEach(assessment -> {
+            System.out.println(assessment.getName() + " - " + assessment.getDescription()
+                    + " - " + assessment.getTotalMarks());
+        });
+    }
+
+    public void getAssessment(int index) {
+        System.out.printf("%s %s %.1f%n", this.assessments.get(index).getName(),
+                this.assessments.get(index).getDescription(),
+                this.assessments.get(index).getTotalMarks());
+    }
+
+
 }
 
 /* Test Code.
