@@ -15,6 +15,38 @@ public class Module {
         this.creditUnits = creditUnits;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getModuleCode() {
+        return moduleCode;
+    }
+
+    public void setModuleCode(String moduleCode) {
+        this.moduleCode = moduleCode;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getCreditUnits() {
+        return creditUnits;
+    }
+
+    public void setCreditUnits(int creditUnits) {
+        this.creditUnits = creditUnits;
+    }
+
     public double getOverallMarks() {
         int overallMarks = 0;
         for (Assessment assessment : this.assessments) {
