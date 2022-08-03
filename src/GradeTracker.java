@@ -29,15 +29,29 @@ public class GradeTracker {
 
         test.getAllAssessments();
 
+    }
 
-        String name;
+    public int getIndexNumber(String name, ArrayList<Assessment> assessments) {
+        int index = -1;
         for (int x = 0; x < (assessments.size()); x++) {
             if ((assessments.get(x).getName()).equals(name)) {
-                return x;
+                index = x;
+                break;
             }
         }
 
+        return index;
+        // Have it when running the getIndexNumber to have a check if getIndexNumber is -1;
+        // throw an IllegalArgumentException or ask the user to retype in the name or there is no
+        // user by that name.
+        /*.
+        if (getIndexNumber(name, assessments) == -1) {
+            throw new IllegalArgumentException("There is no user by that name");
+            // Or something like this
+        }
+        */
     }
+
 }
 
 /* Test Code.
