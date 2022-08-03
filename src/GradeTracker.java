@@ -29,9 +29,15 @@ public class GradeTracker {
 
         test.getAllAssessments();
 
+        int index = getIndexNumber("CA2", assessments);
+
+        System.out.println(" ");
+        test.getAssessment(index);
+
+
     }
 
-    public int getIndexNumber(String name, ArrayList<Assessment> assessments) {
+    public static int getIndexNumber(String name, ArrayList<Assessment> assessments) {
         int index = -1;
         for (int x = 0; x < (assessments.size()); x++) {
             if ((assessments.get(x).getName()).equals(name)) {
@@ -51,7 +57,6 @@ public class GradeTracker {
         }
         */
     }
-
 }
 
 /* Test Code.

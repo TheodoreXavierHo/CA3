@@ -67,7 +67,7 @@ public class Module {
     }
 
     public void getAssessment(int index) {
-        System.out.printf("%s %s %.1f%n", this.assessments.get(index).getName(),
+        System.out.printf("%s - %s - %.1f%n", this.assessments.get(index).getName(),
                 this.assessments.get(index).getDescription(),
                 this.assessments.get(index).getTotalMarks());
     }
