@@ -3,38 +3,6 @@ import java.util.ArrayList;
 public class GradeTracker {
     public static void main(String[] args) {
 
-        Module test = new Module("PF", "PF001", "Program", 100);
-
-        ArrayList<Assessment> assessments = new ArrayList<>();
-
-        System.out.println("Before");
-        test.getAllAssessments();
-
-        assessments.add(new Assessment("CA1", "Descriptor1" , 100, 10));
-        assessments.add(new Assessment("CA2", "Descriptor2" , 100, 20));
-        assessments.add(new Assessment("CA3", "Descriptor3" , 100, 30));
-
-        System.out.println("After");
-        test.setAssessments(assessments);
-
-        test.getAllAssessments();
-
-        System.out.println();
-        test.getAssessment(1);
-
-        assessments.add(new Assessment("CA4", "Des4", 100, 40));
-
-        System.out.println("After");
-        test.setAssessments(assessments);
-
-        test.getAllAssessments();
-
-        int index = getIndexNumber("CA2", assessments);
-
-        System.out.println(" ");
-        test.getAssessment(index);
-
-
     }
 
     public static int getIndexNumber(String name, ArrayList<Assessment> assessments) {
@@ -80,16 +48,17 @@ if (getIndexNumber(name, assessments) == -1) {
 
 /* Test Code.
    To be removed after released version 1.0
-Module test = new Module("PF", "PF001", "Program", 100);
+
+        Module test = new Module("PF", "PF001", "Program", 100);
 
         ArrayList<Assessment> assessments = new ArrayList<>();
 
         System.out.println("Before");
         test.getAllAssessments();
 
-        assessments.add(new Assessment("CA1", "Descriptor1" , 100));
-        assessments.add(new Assessment("CA2", "Descriptor2" , 100));
-        assessments.add(new Assessment("CA3", "Descriptor3" , 100));
+        assessments.add(new Assessment("CA1", "Descriptor1" , 100, 10));
+        assessments.add(new Assessment("CA2", "Descriptor2" , 100, 20));
+        assessments.add(new Assessment("CA3", "Descriptor3" , 100, 30));
 
         System.out.println("After");
         test.setAssessments(assessments);
@@ -98,5 +67,17 @@ Module test = new Module("PF", "PF001", "Program", 100);
 
         System.out.println();
         test.getAssessment(1);
+
+        assessments.add(new Assessment("CA4", "Des4", 100, 40));
+
+        System.out.println("After");
+        test.setAssessments(assessments);
+
+        test.getAllAssessments();
+
+        int index = getIndexNumber("CA2", assessments);
+
+        System.out.println(" ");
+        test.getAssessment(index);
 
  */
