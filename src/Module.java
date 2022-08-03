@@ -47,12 +47,25 @@ public class Module {
         this.creditUnits = creditUnits;
     }
 
+    // Totals the marks scored across all Assessments.
     public double getOverallMarks() {
         int overallMarks = 0;
         for (Assessment assessment : this.assessments) {
             overallMarks += assessment.getMarks();
         }
         return overallMarks;
+    }
+
+    public double getOverallTotalMarks() {
+        int overallTotalMarks = 0;
+        for (Assessment assessment : this.assessments) {
+            overallTotalMarks += assessment.getTotalMarks();
+        }
+        return overallTotalMarks;
+    }
+
+    public String getOverallGrade() {
+
     }
 
     public void setAssessments(ArrayList<Assessment> assessments) {
@@ -71,8 +84,6 @@ public class Module {
                 this.assessments.get(index).getDescription(),
                 this.assessments.get(index).getTotalMarks());
     }
-
-
 }
 
 /* Test Code.
