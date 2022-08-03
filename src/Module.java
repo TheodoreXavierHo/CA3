@@ -49,7 +49,7 @@ public class Module {
 
     // Totals the marks scored across all Assessments.
     public double getOverallMarks() {
-        int overallMarks = 0;
+        double overallMarks = 0;
         for (Assessment assessment : this.assessments) {
             overallMarks += assessment.getMarks();
         }
@@ -57,7 +57,7 @@ public class Module {
     }
 
     public double getOverallTotalMarks() {
-        int overallTotalMarks = 0;
+        double overallTotalMarks = 0;
         for (Assessment assessment : this.assessments) {
             overallTotalMarks += assessment.getTotalMarks();
         }
@@ -65,7 +65,62 @@ public class Module {
     }
 
     public String getOverallGrade() {
+        double marksPercentage =  (getOverallMarks()/getOverallTotalMarks())*100;
+        String gradeLetter = "";
+        if (marksPercentage > 100) {
+            throw new IllegalArgumentException("The marks percentage is over a 100%.");
+        }else if (marksPercentage >= 90) {
+            gradeLetter = "A+";
+        }else if (marksPercentage >= 80) {
+            gradeLetter = "A";
+        }else if (marksPercentage >= 75) {
+            gradeLetter = "B+";
+        }else if (marksPercentage >= 70) {
+            gradeLetter = "B";
+        }else if (marksPercentage >= 65) {
+            gradeLetter = "C+";
+        }else if (marksPercentage >= 60) {
+            gradeLetter = "C";
+        }else if (marksPercentage >= 55) {
+            gradeLetter = "D+";
+        }else if (marksPercentage >= 50) {
+            gradeLetter = "D";
+        }else if (marksPercentage >= 0) {
+            gradeLetter = "F";
+        }else if (marksPercentage < 0) {
+            throw new IllegalArgumentException("The marks percentage is over a 100%.");
+        }
+        return gradeLetter;
+    }
 
+    public double getGradePoint(String grade) {
+        double gpa = -1;
+        if (grade.equals("A+")) {
+            gpa = 4.0;
+        }else if (grade.equals("A")) {
+            gpa = 4.0;
+        }else if (grade.equals("B+")) {
+            gpa = 3.5;
+        }else if (grade.equals("B")) {
+            gpa = 3.0;
+        }else if (grade.equals("C+")) {
+            gpa = 2.5;
+        }else if (grade.equals("C")) {
+            gpa = 2.0;
+        }else if (grade.equals("D+")) {
+            gpa = 1.5;
+        }else if (grade.equals("D")) {
+            gpa = 1.0;
+        }else if (grade.equals("F")) {
+            gpa = 0.0;
+        } else {
+            throw new IllegalArgumentException("There is no grade point average as there is no grade.");
+        }
+        return gpa;
+    }
+
+    public double getWeightedGradePoints() {
+        return getGradePoint(getOverallGrade()) * creditUnits;
     }
 
     public void setAssessments(ArrayList<Assessment> assessments) {
@@ -75,18 +130,61 @@ public class Module {
     public void getAllAssessments() {
         this.assessments.forEach(assessment -> {
             System.out.println(assessment.getName() + " - " + assessment.getDescription()
-                    + " - " + assessment.getTotalMarks());
+                    + " - " + assessment.getTotalMarks() + " - " + assessment.getWeightage());
         });
     }
 
     public void getAssessment(int index) {
-        System.out.printf("%s - %s - %.1f%n", this.assessments.get(index).getName(),
+        System.out.printf("%s - %s - %.1f - %.0f%n", this.assessments.get(index).getName(),
                 this.assessments.get(index).getDescription(),
-                this.assessments.get(index).getTotalMarks());
+                this.assessments.get(index).getTotalMarks(),
+                this.assessments.get(index).getWeightage());
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Test Code.
+   To be removed after released version 1.0
     public static void main(String[] args) {
         Module test = new Module("TestModule", "D927", "Des1", 12);
 
