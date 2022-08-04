@@ -9,10 +9,10 @@ public class Module {
     private final ArrayList<Assessment> assessments = new ArrayList<>();
 
     public Module(String name, String moduleCode, String description, int creditUnits) {
-        this.name = name;
-        this.moduleCode = moduleCode;
-        this.description = description;
-        this.creditUnits = creditUnits;
+        setName(name);
+        setModuleCode(moduleCode);
+        setDescription(description);
+        setCreditUnits(creditUnits);
     }
 
     public String getName() {

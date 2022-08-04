@@ -8,10 +8,10 @@ public class Assessment {
 
     // Set up the Assessment Constructor
     public Assessment(String name, String description, double totalMarks, double weightage) {
-        this.name = name;
-        this.description = description;
-        this.totalMarks = totalMarks;
-        this.weightage = weightage;
+        setName(name);
+        setDescription(description);
+        setTotalMarks(totalMarks);
+        setWeightage(weightage);
     }
 
     public double getWeightedMarks() {

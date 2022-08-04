@@ -6,8 +6,8 @@ public class Student {
     private final ArrayList<Module> modules = new ArrayList<>(); // A list of Modules the Student is taking.
 
     public Student (String name, String studentID) {
-        this.name = name;
-        this.studentID = studentID;
+        setName(name);
+        setStudentID(studentID);
     }
 
     public String getName() {
@@ -60,5 +60,23 @@ public class Student {
 
     public ArrayList<Module> getModules() {
         return modules;
+    }
+
+    // Gets the Module's Index Number in the Modules Array List
+    public int getIndexNumber(String name) {
+        int index = 0;
+        if (this.modules.size() > 0){
+            for (int x = 0; x < this.modules.size(); x++) {
+                if ((this.modules.get(x).getName()).equals(name)) {
+                    index = x;
+                    break;
+                }
+            }
+        }
+        return index;
+    }
+
+    public void removeModules(int index) {
+        this.modules.remove(index);
     }
 }
