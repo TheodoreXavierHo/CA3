@@ -18,10 +18,13 @@ public class Student {
         return total;
     }
 
-
-
-
-
+    public double getGPA() {
+        double totalWeightedGradePoint = 0;
+        for (Module module : modules) {
+            totalWeightedGradePoint += module.getWeightedGradePoints();
+        }
+        return totalWeightedGradePoint / getTotalCreditUnits();
+    }
 
     public void setModules(ArrayList<Module> modules) {
         this.modules = modules;

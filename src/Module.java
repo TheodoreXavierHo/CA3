@@ -94,29 +94,29 @@ public class Module {
     }
 
     public double getGradePoint(String grade) {
-        double gpa = -1;
+        double gp = -1;
         if (grade.equals("A+")) {
-            gpa = 4.0;
+            gp = 4.0;
         }else if (grade.equals("A")) {
-            gpa = 4.0;
+            gp = 4.0;
         }else if (grade.equals("B+")) {
-            gpa = 3.5;
+            gp = 3.5;
         }else if (grade.equals("B")) {
-            gpa = 3.0;
+            gp = 3.0;
         }else if (grade.equals("C+")) {
-            gpa = 2.5;
+            gp = 2.5;
         }else if (grade.equals("C")) {
-            gpa = 2.0;
+            gp = 2.0;
         }else if (grade.equals("D+")) {
-            gpa = 1.5;
+            gp = 1.5;
         }else if (grade.equals("D")) {
-            gpa = 1.0;
+            gp = 1.0;
         }else if (grade.equals("F")) {
-            gpa = 0.0;
+            gp = 0.0;
         } else {
             throw new IllegalArgumentException("There is no grade point average as there is no grade.");
         }
-        return gpa;
+        return gp;
     }
 
     public double getWeightedGradePoints() {

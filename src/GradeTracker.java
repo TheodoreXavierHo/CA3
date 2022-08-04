@@ -17,6 +17,7 @@ public class GradeTracker {
         return index;
     }
 }
+
 /*.
 Have it when running the getIndexNumber to have a check if getIndexNumber is -1;
 throw an IllegalArgumentException or ask the user to retype in the name or there is no
