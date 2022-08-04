@@ -1,15 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
-
-
-
-
-
-
-
-
 public class GradeTracker {
     private final ArrayList<Student> students = new ArrayList<>();
     public static void main(String[] args) {
@@ -42,7 +33,7 @@ public class GradeTracker {
                     gradeTracker.studentManagementOptions(); // DONE
                     break;
                 case 2:
-                    gradeTracker.moduleManagementOptions();
+                    gradeTracker.moduleManagementOptions(); // 50%
                     break;
                 case 3:
                     gradeTracker.assessmentManagementOptions();
