@@ -6,12 +6,14 @@ public class Assessment {
     private double totalMarks; // Total possible marks for this Assessment
     private double weightage; // The percentage of marks (out of the overall) that this Assessment carries
 
+    // Set up the Assessment Constructor
     public Assessment(String name, String description, double totalMarks, double weightage) {
         this.name = name;
         this.description = description;
         this.totalMarks = totalMarks;
         this.weightage = weightage;
     }
+
     public double getWeightedMarks() {
         return this.marks/this.totalMarks;
     }

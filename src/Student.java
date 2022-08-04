@@ -1,11 +1,9 @@
-import com.sun.org.apache.xpath.internal.operations.Mod;
-
 import java.util.ArrayList;
 
 public class Student {
     private String name; // Student Name
     private String studentID; // Student ID (The description of the module.)
-    private ArrayList<Module> modules = new ArrayList<>(); // A list of Modules the Student is taking.
+    private final ArrayList<Module> modules = new ArrayList<>(); // A list of Modules the Student is taking.
 
     public Student (String name, String studentID) {
         this.name = name;
@@ -49,10 +47,8 @@ public class Student {
     }
 
     public void getAllModules() {
-        this.modules.forEach(modules -> {
-            System.out.println(modules.getName() + " - " + modules.getModuleCode()
-                    + " - " + modules.getDescription() + " - " + modules.getCreditUnits());
-        });
+        this.modules.forEach(modules -> System.out.println(modules.getName() + " - " + modules.getModuleCode()
+                + " - " + modules.getDescription() + " - " + modules.getCreditUnits()));
     }
 
     public void getModuleList(int index) {
@@ -65,5 +61,4 @@ public class Student {
     public ArrayList<Module> getModules() {
         return modules;
     }
-    //public void getModulesAssessment
 }

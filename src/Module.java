@@ -6,7 +6,7 @@ public class Module {
     private String description; // The description of the Module
     private int creditUnits; // How many credits the Module carries
     // A list of Assessments that the module uses to determine the final grade of the student (e.g. CA1, CA2, CA3 etc.)
-    private ArrayList<Assessment> assessments = new ArrayList<>();
+    private final ArrayList<Assessment> assessments = new ArrayList<>();
 
     public Module(String name, String moduleCode, String description, int creditUnits) {
         this.name = name;
@@ -49,10 +49,14 @@ public class Module {
 
     // Totals the marks scored across all Assessments.
     public double getOverallMarks() {
-        double overallMarks = 0;
+        double overallMarks;
+        double totalStudentMarks = 0;
+        double totalAssessmentMarks = 0;
         for (Assessment assessment : this.assessments) {
-            overallMarks += assessment.getMarks();
+            totalStudentMarks += assessment.getMarks();
+            totalAssessmentMarks += assessment.getTotalMarks();
         }
+        overallMarks = totalStudentMarks/totalAssessmentMarks;
         return overallMarks;
     }
 
@@ -65,7 +69,7 @@ public class Module {
     }
 
     public String getOverallGrade() {
-        double marksPercentage =  (getOverallMarks()/getOverallTotalMarks())*100;
+        double marksPercentage =  (getOverallMarks())*100;
         String gradeLetter = "";
         if (marksPercentage > 100) {
             throw new IllegalArgumentException("The marks percentage is over a 100%.");
@@ -94,27 +98,35 @@ public class Module {
     }
 
     public double getGradePoint(String grade) {
-        double gp = -1;
-        if (grade.equals("A+")) {
-            gp = 4.0;
-        }else if (grade.equals("A")) {
-            gp = 4.0;
-        }else if (grade.equals("B+")) {
-            gp = 3.5;
-        }else if (grade.equals("B")) {
-            gp = 3.0;
-        }else if (grade.equals("C+")) {
-            gp = 2.5;
-        }else if (grade.equals("C")) {
-            gp = 2.0;
-        }else if (grade.equals("D+")) {
-            gp = 1.5;
-        }else if (grade.equals("D")) {
-            gp = 1.0;
-        }else if (grade.equals("F")) {
-            gp = 0.0;
-        } else {
-            throw new IllegalArgumentException("There is no grade point average as there is no grade.");
+        double gp;
+        switch (grade) {
+            case "A+":
+            case "A":
+                gp = 4.0;
+                break;
+            case "B+":
+                gp = 3.5;
+                break;
+            case "B":
+                gp = 3.0;
+                break;
+            case "C+":
+                gp = 2.5;
+                break;
+            case "C":
+                gp = 2.0;
+                break;
+            case "D+":
+                gp = 1.5;
+                break;
+            case "D":
+                gp = 1.0;
+                break;
+            case "F":
+                gp = 0.0;
+                break;
+            default:
+                throw new IllegalArgumentException("There is no grade point average as there is no grade.");
         }
         return gp;
     }
@@ -123,21 +135,14 @@ public class Module {
         return getGradePoint(getOverallGrade()) * creditUnits;
     }
 
-    /*.
-    public void setAssessments(ArrayList<Assessment> assessments) {
-        this.assessments = assessments;
-    }
-    */
-
     public void setAssessments(String name, String description, double totalMarks, double weightage) {
         this.assessments.add(new Assessment(name, description, totalMarks, weightage));
     }
 
     public void getAllAssessments() {
-        this.assessments.forEach(assessment -> {
-            System.out.println(assessment.getName() + " - " + assessment.getDescription()
-                    + " - " + assessment.getTotalMarks() + " - " + assessment.getWeightage());
-        });
+        this.assessments.forEach(assessment -> System.out.println(assessment.getName() + " - " +
+                assessment.getDescription() + " - " + assessment.getTotalMarks()
+                + " - " + assessment.getWeightage()));
     }
 
     public void getAssessmentList(int index) {
