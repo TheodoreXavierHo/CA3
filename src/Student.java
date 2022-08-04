@@ -10,7 +10,13 @@ public class Student {
         this.studentID = studentID;
     }
 
-
+    public int getTotalCreditUnits() {
+        int total = 0;
+        for (Module module : modules) {
+            total += module.getCreditUnits();
+        }
+        return total;
+    }
 
 
 
