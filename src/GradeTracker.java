@@ -324,7 +324,6 @@ public class GradeTracker {
     }
 
     public boolean checkIfModule(String name) {
-
         return this.students.get(getIndexNumber(name)).getModules().size() > 0;
     }
 }
