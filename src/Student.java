@@ -1,12 +1,30 @@
+import com.sun.org.apache.xpath.internal.operations.Mod;
+
 import java.util.ArrayList;
 
 public class Student {
     private String name; // Student Name
     private String studentID; // Student ID (The description of the module.)
-    private ArrayList<Module> modules; // A list of Modules the Student is taking.
+    private ArrayList<Module> modules = new ArrayList<>(); // A list of Modules the Student is taking.
 
     public Student (String name, String studentID) {
         this.name = name;
+        this.studentID = studentID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getStudentID() {
+        return studentID;
+    }
+
+    public void setStudentID(String studentID) {
         this.studentID = studentID;
     }
 
@@ -26,8 +44,8 @@ public class Student {
         return totalWeightedGradePoint / getTotalCreditUnits();
     }
 
-    public void setModules(ArrayList<Module> modules) {
-        this.modules = modules;
+    public void setModules(String name, String moduleCode, String description, int creditUnits) {
+        this.modules.add(new Module(name, moduleCode, description, creditUnits));
     }
 
     public void getAllModules() {
@@ -37,10 +55,15 @@ public class Student {
         });
     }
 
-    public void getModule(int index) {
+    public void getModuleList(int index) {
         System.out.printf("%s - %s - %s - %d%n", this.modules.get(index).getName(),
                 this.modules.get(index).getModuleCode(),
                 this.modules.get(index).getDescription(),
                 this.modules.get(index).getCreditUnits());
     }
+
+    public ArrayList<Module> getModules() {
+        return modules;
+    }
+    //public void getModulesAssessment
 }

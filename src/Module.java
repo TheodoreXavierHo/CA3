@@ -123,8 +123,14 @@ public class Module {
         return getGradePoint(getOverallGrade()) * creditUnits;
     }
 
+    /*.
     public void setAssessments(ArrayList<Assessment> assessments) {
         this.assessments = assessments;
+    }
+    */
+
+    public void setAssessments(String name, String description, double totalMarks, double weightage) {
+        this.assessments.add(new Assessment(name, description, totalMarks, weightage));
     }
 
     public void getAllAssessments() {
@@ -134,11 +140,14 @@ public class Module {
         });
     }
 
-    public void getAssessment(int index) {
+    public void getAssessmentList(int index) {
         System.out.printf("%s - %s - %.1f - %.0f%n", this.assessments.get(index).getName(),
                 this.assessments.get(index).getDescription(),
                 this.assessments.get(index).getTotalMarks(),
                 this.assessments.get(index).getWeightage());
+    }
+    public ArrayList<Assessment> getAssessments() {
+        return assessments;
     }
 }
 
