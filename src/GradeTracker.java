@@ -10,11 +10,20 @@ public class GradeTracker {
 
     public static void run() {
         // System.out.printf("Welcome to the Student Tracker Application.%n%n");
-        // Wrote bottom as a slight joke.
-        System.out.printf("%s %s %s %s %s %s.%n%n", "Welcome", "to", "the", "Student", "Tracker", "Application");
+        // Wrote the bottom as a slight joke.
+        String sWelcome = "Welcome";
+        String sTo = "to";
+        String sThe = "the";
+        String sStudent = "Student";
+        String sTracker = "Tracker";
+        String sApplication = "Application";
+        System.out.printf("%s %s %s %s %s %s.%n%n",
+                sWelcome, sTo, sThe, sStudent, sTracker, sApplication);
+
         Scanner input = new Scanner(System.in);
-        int choice = 0;
         GradeTracker gradeTracker = new GradeTracker();
+
+        int choice = 0;
 
         while (choice != 4) {
             System.out.printf(
