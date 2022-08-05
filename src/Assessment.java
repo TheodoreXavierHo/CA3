@@ -1,7 +1,7 @@
 public class Assessment {
     private String name; // Name of the Assessment (e.g. CA1, CA2, etc.).
     private String description; // The description of the Module
-    private Module module; // A reference to the Module this Assessment belongs to. (Is Not Used)
+    //***.private Module module; // A reference to the Module this Assessment belongs to. (Is Not Used)
     private double marks; // The marks scored for this particular Assessment
     private double totalMarks; // Total possible marks for this Assessment
     private double weightage; // The percentage of marks (out of the overall) that this Assessment carries
@@ -41,10 +41,11 @@ public class Assessment {
     public void setMarks(double marks) {
         if (marks < 0) {
             throw new IllegalArgumentException("Marks set is less than 0. PLease enter a value above 0.");
-        } else if (this.totalMarks < marks) {
-            this.marks = this.totalMarks;
+        } else if (marks >= this.totalMarks) {
+            throw new IllegalArgumentException("Marks set is greater than total available marks.\n" +
+                    "PLease enter a value below the total marks.");
         } else {
-        this.marks = marks;
+            this.marks = marks;
         }
     }
 
