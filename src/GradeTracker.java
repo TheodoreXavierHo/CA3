@@ -33,7 +33,7 @@ public class GradeTracker {
                     gradeTracker.studentManagementOptions(); // DONE
                     break;
                 case 2:
-                    gradeTracker.moduleManagementOptions(); // 50%
+                    gradeTracker.moduleManagementOptions(); // DONE
                     break;
                 case 3:
                     gradeTracker.assessmentManagementOptions();
