@@ -15,7 +15,7 @@ public class Assessment {
     }
 
     public double getWeightedMarks() {
-        return this.marks/this.totalMarks;
+        return getMarks()/getTotalMarks();
     }
 
     public String getName() {

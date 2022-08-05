@@ -39,10 +39,10 @@ public class GradeTracker {
 
             switch (choice) {
                 case 1:
-                    gradeTracker.studentManagementOptions(); // DONE
+                    gradeTracker.studentManagementOptions();
                     break;
                 case 2:
-                    gradeTracker.moduleManagementOptions(); // DONE
+                    gradeTracker.moduleManagementOptions();
                     break;
                 case 3:
                     gradeTracker.assessmentManagementOptions();
@@ -54,14 +54,14 @@ public class GradeTracker {
                     break;
             }
         }
-        System.out.printf("Application Closed!%nHave a Nice Day!");
+        System.out.printf("%n%nApplication Closed!%nHave a Nice Day!");
     }
 
     // Student Management & Methods
     public void studentManagementOptions() {
         Scanner input = new Scanner(System.in);
         int subChoice = 0;
-        while(subChoice !=5) {
+        while(subChoice != 5) {
             System.out.printf(
                     "%nStudent Management Options:%n" +
                     "1. Create New Student%n" +
@@ -139,7 +139,8 @@ public class GradeTracker {
 
             // Check if student already exists
             if (checkIfStudent(name,studentID)) {
-                System.out.printf("%n%s's GPA is: %.2f", name, this.students.get(getIndexNumber(name)).getGPA());
+                System.out.printf("%n%s's GPA is: %.2f", name,
+                        this.students.get(getIndexNumber(name)).getGPA());
             } else {
                 System.out.printf("%nStudent dose not exist!");
             }
@@ -160,7 +161,8 @@ public class GradeTracker {
     public boolean checkIfStudent(String name, String studentID) {
         if (this.students.size() > 0) {
             for (Student student : students) {
-                if (student.getName().equals(name) && student.getStudentID().equals(studentID)) {
+                if (student.getName().equals(name) &&
+                        student.getStudentID().equals(studentID)) {
                     return true;
                 }
             }
@@ -173,7 +175,7 @@ public class GradeTracker {
     public void moduleManagementOptions() {
         Scanner input = new Scanner(System.in);
         int subChoice = 0;
-        while(subChoice !=6) {
+        while(subChoice != 6) {
             System.out.printf(
                     "%nModule Management Options:%n" +
                     "1. Add modules to student%n" +
@@ -205,7 +207,8 @@ public class GradeTracker {
                     calculateStudentGrade();
                     break;
                 case 5:
-                    displayAllStudentModels();
+                    System.out.println();
+                    displayAllStudentModules();
                     break;
                 default:
                     if (subChoice != 6) {
@@ -234,9 +237,14 @@ public class GradeTracker {
                 System.out.print("Enter CreditUnits: ");
                 int creditUnits = input.nextInt();
 
-                this.students.get(getIndexNumber(name)).setModules(moduleName, moduleCode, descriptor, creditUnits);
-                this.students.get(getIndexNumber(name)).getModuleList(this.students.
+                this.students.get(getIndexNumber(name)).
+                        setModules(moduleName, moduleCode, descriptor, creditUnits);
+
+                System.out.printf("%nProgramme - Module Code - Descriptor - Credit Units%n");
+                this.students.get(getIndexNumber(name)).
+                        getModuleList(this.students.
                         get(getIndexNumber(name)).getIndexNumber(moduleName));
+
             } else {
                 System.out.printf("%nStudent dose not exist!");
             }
@@ -280,17 +288,10 @@ public class GradeTracker {
 
             if (checkIfStudent(name,studentID)) {
                 if (checkIfModule(name, moduleName)) {
-
-                    /*. //Test input. TO BE REMOVED
-                    this.students.get(0).getModules().get(0).
-                            setAssessments("CA1", "Test", 100, 100);
-                    this.students.get(0).getModules().get(0).getAssessments().get(0).setMarks(90);
-                     */
-
-                    System.out.printf("%nTotal Marks: %.0f%%", (this.students.get(getIndexNumber(name)).
+                    System.out.printf("%nTotal Marks: %.0f%%",
+                            (this.students.get(getIndexNumber(name)).
                             getModules().get(students.get(getIndexNumber(name)).
-                                    getIndexNumber(moduleName))
-                            .getOverallMarks()) * 100);
+                                    getIndexNumber(moduleName)).getOverallMarks()) * 100);
                 } else {
                     System.out.println("There is no modules assign to this student!");
                 }
@@ -314,8 +315,7 @@ public class GradeTracker {
                 if (checkIfModule(name, moduleName)) {
                     System.out.printf("%nGrade: %s", this.students.get(getIndexNumber(name)).
                             getModules().get(students.get(getIndexNumber(name)).
-                                    getIndexNumber(moduleName))
-                            .getOverallGrade());
+                                    getIndexNumber(moduleName)).getOverallGrade());
                 } else {
                     System.out.println("There is no modules assign to this student!");
                 }
@@ -329,17 +329,17 @@ public class GradeTracker {
         }
     }
 
-    public void displayAllStudentModels() {
+    public void displayAllStudentModules() {
         if (this.students.size() > 0) {
             String name = getStudentName();
             String studentID = getStudentID();
-            String moduleName = getModuleName();
 
             if (checkIfStudent(name,studentID)) {
-                if (checkIfModule(name, moduleName)) {
-                    this.students.get(getIndexNumber(name)).getAllModules();
+                if (this.students.get(getIndexNumber(name)).getModules().isEmpty()) {
+                    System.out.println("There is no modules assigned to " + name);
                 } else {
-                    System.out.println("There is no modules assign to this student!");
+                    System.out.printf("%nProgramme - Module Code - Descriptor - Credit Units%n");
+                    this.students.get(getIndexNumber(name)).getAllModules();
                 }
             } else {
                 System.out.printf("%nStudent dose not exist!");
@@ -353,9 +353,13 @@ public class GradeTracker {
 
     public boolean checkIfModule(String name, String moduleName) {
         if (this.students.get(getIndexNumber(name)).getModules().size() > 0) {
-            return this.students.get(getIndexNumber(name)).getModules().
-                    get(this.students.get(getIndexNumber(name)).
-                            getIndexNumber(moduleName)).getName().
+            return this.students.
+                    get(getIndexNumber(name)).
+                    getModules().
+                    get(this.students.
+                            get(getIndexNumber(name)).
+                            getIndexNumber(moduleName)
+                    ).getName().
                     equals(moduleName);
         } else {
             return false;
@@ -367,13 +371,14 @@ public class GradeTracker {
     public void assessmentManagementOptions() {
         Scanner input = new Scanner(System.in);
         int subChoice = 0;
-        while(subChoice !=5) {
+        while(subChoice != 5) {
             System.out.printf(
-                    "%nStudent Management Options:%n" +
-                            "1. Create New Student%n" +
-                            "2. Delete New Students%n" +
-                            "3. Calculate Student's GPA%n" +
-                            "4. View all Students%n" +
+                    "%nAssessment Management Options:%n" +
+                            "1. Add any number of Assessments to a Module" +
+                            "that is assigned to a student%n" +
+                            "2. Remove any Assessment in a Module assigned to a student%n" +
+                            "3. Set or Remove marks from Assessment%n" +
+                            "4. Display all assessment for a module taken by a student%n" +
                             "5. Return to Main Menu%n" +
                             "Enter Choice: "
             );
@@ -383,19 +388,19 @@ public class GradeTracker {
             switch (subChoice) {
                 case 1:
                     System.out.println();
-                    addNewStudent();
+                    addAssessments();
                     break;
                 case 2:
                     System.out.println();
-                    deleteStudent();
+                    removeAssessments();
                     break;
                 case 3:
                     System.out.println();
-                    calculateStudentGPA();
+                    addOrRemoveMarks();
                     break;
                 case 4:
                     System.out.println();
-                    viewAllStudentDetails();
+                    displayAllStudentModelsAssessments();
                     break;
                 default:
                     if (subChoice != 5) {
@@ -406,6 +411,224 @@ public class GradeTracker {
         }
     }
 
+    public void addAssessments() {
+        Scanner input = new Scanner(System.in);
+        if (this.students.size() > 0) {
+            String name = getStudentName();
+            String studentID = getStudentID();
+            String moduleName = getModuleName();
+
+            System.out.printf("%nEnter Assessment's Name: ");
+            String assessmentName = input.nextLine();
+
+            System.out.print("Enter Descriptor: ");
+            String descriptor = input.nextLine();
+
+            System.out.print("Enter total achievable marks: ");
+            double totalMarks = input.nextDouble();
+
+            System.out.print("Enter weightage percent: ");
+            double weightage = input.nextDouble();
+
+            if (checkIfStudent(name,studentID)) {
+                if (checkIfModule(name, moduleName)) {
+                    this.students.
+                            get(getIndexNumber(name)).
+                            getModules().get(
+                                    getIndexNumber(moduleName)
+                            ).setAssessments(assessmentName, descriptor, totalMarks, weightage);
+                            //.getAssessments().add(new Assessment(assessmentName, descriptor, totalMarks, weightage));
+
+                    System.out.printf("%nTest - Descriptor - Total Achievable Marks - Weightage%n");
+                    this.students.
+                            get(getIndexNumber(name)).
+                            getModules().get(getIndexNumber(moduleName)).
+                            getAssessmentList(
+                                    this.students.
+                                    get(getIndexNumber(name)).
+                                    getModules().
+                                    get(getIndexNumber(moduleName)).
+                                    getIndexNumber(assessmentName)
+                            );
+                } else {
+                    System.out.println("There is no modules assign to this student!");
+                }
+            } else {
+                System.out.printf("%nStudent dose not exist!");
+            }
+            System.out.println();
+
+        } else {
+            System.out.printf("%nThere is no student in the list!");
+        }
+    }
+
+    public void removeAssessments() {
+        if (this.students.size() > 0) {
+            String name = getStudentName();
+            String studentID = getStudentID();
+            String moduleName = getModuleName();
+            String assessmentName = getAssessmentName();
+
+            if (checkIfStudent(name,studentID)) {
+                if (checkIfModule(name, moduleName)) {
+                    if (checkIfAssessment(name, moduleName, assessmentName)) {
+                        this.students.
+                                get(getIndexNumber(name)).
+                                getModules().
+                                get(getIndexNumber(moduleName)).
+                                getAssessments().
+                                remove(getIndexNumber(assessmentName));
+                    } else {
+                        System.out.println("There is no assessments assign to this modules!");
+                    }
+                } else {
+                    System.out.println("There is no modules assign to this student!");
+                }
+            } else {
+                System.out.printf("%nStudent dose not exist!");
+            }
+            System.out.println();
+
+        } else {
+            System.out.printf("%nThere is no student in the list!");
+        }
+    }
+
+    public void addOrRemoveMarks() {
+        Scanner input = new Scanner(System.in);
+        if (this.students.size() > 0) {
+            String name = getStudentName();
+            String studentID = getStudentID();
+            String moduleName = getModuleName();
+            String assessmentName = getAssessmentName();
+
+            if (checkIfStudent(name,studentID)) {
+                if (checkIfModule(name, moduleName)) {
+                    if (checkIfAssessment(name, moduleName, assessmentName)) {
+                        System.out.printf(
+                                "Marks Setter/Remover%n" +
+                                        "1. Set Marks%n" +
+                                        "2. Remove Marks%n" +
+                                        "3. Quit%n" +
+                                        "Enter: ");
+                        int choice = input.nextInt();
+
+                        switch (choice) {
+                            case 1:
+                                System.out.printf("%nEnter Marks: ");
+                                double marks = input.nextDouble();
+
+                                // Add Marks
+                                this.students.
+                                        get(getIndexNumber(name)).
+                                        getModules().
+                                        get(this.students.
+                                                get(getIndexNumber(name)).
+                                                getIndexNumber(moduleName)
+                                        ).
+                                        getAssessments().
+                                        get(this.students.
+                                                get(getIndexNumber(name)).
+                                                getModules().
+                                                get(this.students.
+                                                        get(getIndexNumber(name)).
+                                                        getIndexNumber(moduleName)
+                                                ).getIndexNumber(assessmentName)
+                                        ).setMarks(marks);
+                                break;
+                            case 2:
+                                // Remove Marks
+                                this.students.
+                                        get(getIndexNumber(name)).
+                                        getModules().
+                                        get(this.students.
+                                                get(getIndexNumber(name)).
+                                                getIndexNumber(moduleName)).
+                                        getAssessments().remove(
+                                                (this.students.
+                                                        get(getIndexNumber(name)).
+                                                        getModules().
+                                                        get(this.students.
+                                                                get(getIndexNumber(name)).
+                                                                getIndexNumber(moduleName)
+                                                        ).getIndexNumber(assessmentName)
+                                                )
+                                        );
+                                break;
+                        }
+                    } else {
+                        System.out.println("There is no assessments assign to this modules!");
+                    }
+                } else {
+                    System.out.println("There is no modules assign to this student!");
+                }
+            } else {
+                System.out.printf("%nStudent dose not exist!");
+            }
+            System.out.println();
+
+        } else {
+            System.out.printf("%nThere is no student in the list!");
+        }
+    }
+
+    public void displayAllStudentModelsAssessments() {
+        if (this.students.size() > 0) {
+            String name = getStudentName();
+            String studentID = getStudentID();
+            String moduleName = getModuleName();
+
+            if (checkIfStudent(name,studentID)) {
+                if (checkIfModule(name, moduleName)) {
+                    if (this.students.get(getIndexNumber(name)).
+                            getModules().get(this.students.get(
+                                    getIndexNumber(name)).
+                                    getIndexNumber(moduleName)
+                            ).getAssessments().isEmpty()) {
+                        System.out.printf("There is no assessments assigned to %s", moduleName);
+                    } else {
+                        System.out.printf("%nTest - Descriptor - Total Achievable Marks - Weightage%n");
+                        this.students.
+                                get(getIndexNumber(name)).
+                                getModules().
+                                get(this.students.get(
+                                        getIndexNumber(name)).
+                                        getIndexNumber(moduleName)).
+                                getAllAssessments();
+                    }
+                } else {
+                    System.out.println("There is no modules assign to this student!");
+                }
+            } else {
+                System.out.printf("%nStudent dose not exist!");
+            }
+            System.out.println();
+
+        } else {
+            System.out.printf("%nThere is no student in the list!");
+        }
+    }
+
+
+    // Check if assessment exist in Array List if so, return true if not returns false
+    public boolean checkIfAssessment(String name, String moduleName, String assessmentName) {
+        if (this.students.get(getIndexNumber(name)).getModules().size() > 0) {
+            return this.students.
+                    get(getIndexNumber(name)).
+                    getModules().
+                    get(this.students.
+                            get(getIndexNumber(name)).
+                            getIndexNumber(moduleName)).
+                    getAssessments().get(this.students.
+                            get(getIndexNumber(name)).
+                            getIndexNumber(moduleName)).
+                    getName().
+                    equals(assessmentName);
+        } else {
+            return false;
+        }
+    }
 
 
     // Commonly used methods
@@ -425,9 +648,17 @@ public class GradeTracker {
         return input.nextLine();
     }
 
+    // Gets Module Name
     public String getModuleName() {
         Scanner input = new Scanner(System.in);
         System.out.print("Enter Module Name: ");
+        return input.nextLine();
+    }
+
+    // Gets Assessment Name
+    public String getAssessmentName() {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter Assessment's Name: ");
         return input.nextLine();
     }
 
@@ -445,110 +676,3 @@ public class GradeTracker {
         return index;
     }
 }
-
-
-/* Test Code.
-   To be removed after released version 1.0
-
-        Module test = new Module("PF", "PF001", "Program", 100);
-
-        ArrayList<Assessment> assessments = new ArrayList<>();
-
-        System.out.println("Before");
-        test.getAllAssessments();
-
-        assessments.add(new Assessment("CA1", "Descriptor1" , 100, 10));
-        assessments.add(new Assessment("CA2", "Descriptor2" , 100, 20));
-        assessments.add(new Assessment("CA3", "Descriptor3" , 100, 30));
-
-        System.out.println("After");
-        test.setAssessments(assessments);
-
-        test.getAllAssessments();
-
-        System.out.println();
-        test.getAssessment(1);
-
-        assessments.add(new Assessment("CA4", "Des4", 100, 40));
-
-        System.out.println("After");
-        test.setAssessments(assessments);
-
-        test.getAllAssessments();
-
-        int index = getIndexNumber("CA2", assessments);
-
-        System.out.println(" ");
-        test.getAssessment(index);
-
-Other Test Code
-        ArrayList<Student> students = new ArrayList<>();
-        students.add(new Student("Jack", "91823"));
-        System.out.println(students.get(0).getName()
-                + " - " + students.get(0).getStudentID());
-        students.get(0).setModules("PF","PFO"," ",100);
-        students.get(0).setModules("CN","CNO"," ",100);
-
-        students.get(0).getAllModules();
- */
-
-/*. Some more Test code to be removed.
-   public static void main(String[] args) {
-        ArrayList<Student> students = new ArrayList<>();
-        students.add(new Student("Jack", "91823"));
-        System.out.println(students.get(0).getName()
-                + " - " + students.get(0).getStudentID());
-        students.get(0).setModules("PF", "PFO", "DES", 100);
-        students.get(0).setModules("CN", "CNO", "DES2", 100);
-        students.get(0).getModules().get(0).setName("Test");
-
-        students.get(0).getAllModules();
-
-        Module module = students.get(0).getModules().get(0);
-
-        module.setAssessments("CA1", "TEST", 100, 100);
-        module.setAssessments("CA2", "TEST", 100, 100);
-        module.getAllAssessments();
-
-        Assessment assessment = module.getAssessments().get(0);
-        Assessment assessment2 = module.getAssessments().get(1);
-        System.out.println(assessment.getName());
-        System.out.println(assessment2.getName());
-
-        module.getAssessmentList(0);
-        module.getAssessmentList(1);
-
-        module.getAssessments().get(0).setMarks(90);
-        module.getAssessments().get(1).setMarks(90);
-        System.out.println(module.getOverallMarks());
-        System.out.println(module.getOverallTotalMarks());
-        System.out.println(module.getOverallGrade());
-        System.out.println(module.getGradePoint(module.getOverallGrade()));
-    }
- */
-/*.
-// Do you want to continue with Method
-    public boolean wantToContinue(String description) {
-        Scanner input = new Scanner(System.in);
-        System.out.printf("Do you want to continue %s%n" +
-                "1. Yes%n" +
-                "2. No%n" +
-                "> ", description);
-        int choice = input.nextInt();
-        switch (choice) {
-            case 1:
-                return true;
-            case 2:
-                return false;
-            default:
-                throw new IllegalArgumentException("Please Enter A Valid Number.");
-        }
-    }
-    boolean toContinue = true;
-    while (toContinue) {
-        System.out.println();
-        addNewStudent();
-        toContinue = wantToContinue("with adding Students");
-    }
-    break;
- */
