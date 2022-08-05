@@ -147,11 +147,24 @@ public class GradeTracker {
         }
     }
 
+    // Checks if the student exist in the Students Array List if so, return true if not returns false
+    public boolean checkIfStudent(String name, String studentID) {
+        if (this.students.size() > 0) {
+            for (Student student : students) {
+                if (student.getName().equals(name) && student.getStudentID().equals(studentID)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
     // Module Management & Methods
     public void moduleManagementOptions() {
         Scanner input = new Scanner(System.in);
         int subChoice = 0;
-        while(subChoice !=5) {
+        while(subChoice !=6) {
             System.out.printf(
                     "%nModule Management Options:%n" +
                     "1. Add modules to student%n" +
@@ -184,6 +197,7 @@ public class GradeTracker {
                     break;
                 case 5:
                     displayAllStudentModels();
+                    break;
                 default:
                     if (subChoice != 6) {
                         System.out.printf("%nPlease select the correct option");
@@ -223,17 +237,14 @@ public class GradeTracker {
     }
 
     public void removeModule() {
-        Scanner input = new Scanner(System.in);
         if (this.students.size() > 0) {
             String name = getStudentName();
             String studentID = getStudentID();
-
-            System.out.print("Enter Module Name: ");
-            String moduleName = input.nextLine();
+            String moduleName = getModuleName();
 
             // Check if student already exists
             if (checkIfStudent(name,studentID)) {
-                if (checkIfModule(name)) {
+                if (checkIfModule(name, moduleName)) {
                     this.students.get(getIndexNumber(name)).
                             removeModules(this.students.get(getIndexNumber(name))
                                     .getIndexNumber(moduleName));
@@ -253,15 +264,93 @@ public class GradeTracker {
     }
 
     public void calculateStudentMarks() {
+        if (this.students.size() > 0) {
+            String name = getStudentName();
+            String studentID = getStudentID();
+            String moduleName = getModuleName();
 
+            if (checkIfStudent(name,studentID)) {
+                if (checkIfModule(name, moduleName)) {
+
+                    /*. //Test input. TO BE REMOVED
+                    this.students.get(0).getModules().get(0).
+                            setAssessments("CA1", "Test", 100, 100);
+                    this.students.get(0).getModules().get(0).getAssessments().get(0).setMarks(90);
+                     */
+
+                    System.out.printf("%nTotal Marks: %.0f%%", (this.students.get(getIndexNumber(name)).
+                            getModules().get(students.get(getIndexNumber(name)).
+                                    getIndexNumber(moduleName))
+                            .getOverallMarks()) * 100);
+                } else {
+                    System.out.println("There is no modules assign to this student!");
+                }
+            } else {
+                System.out.printf("%nStudent dose not exist!");
+            }
+            System.out.println();
+
+        } else {
+            System.out.printf("%nThere is no student in the list!");
+        }
     }
 
     public void calculateStudentGrade() {
+        if (this.students.size() > 0) {
+            String name = getStudentName();
+            String studentID = getStudentID();
+            String moduleName = getModuleName();
 
+            if (checkIfStudent(name,studentID)) {
+                if (checkIfModule(name, moduleName)) {
+                    System.out.printf("%nGrade: %s", this.students.get(getIndexNumber(name)).
+                            getModules().get(students.get(getIndexNumber(name)).
+                                    getIndexNumber(moduleName))
+                            .getOverallGrade());
+                } else {
+                    System.out.println("There is no modules assign to this student!");
+                }
+            } else {
+                System.out.printf("%nStudent dose not exist!");
+            }
+            System.out.println();
+
+        } else {
+            System.out.printf("%nThere is no student in the list!");
+        }
     }
 
     public void displayAllStudentModels() {
+        if (this.students.size() > 0) {
+            String name = getStudentName();
+            String studentID = getStudentID();
+            String moduleName = getModuleName();
 
+            if (checkIfStudent(name,studentID)) {
+                if (checkIfModule(name, moduleName)) {
+                    this.students.get(getIndexNumber(name)).getAllModules();
+                } else {
+                    System.out.println("There is no modules assign to this student!");
+                }
+            } else {
+                System.out.printf("%nStudent dose not exist!");
+            }
+            System.out.println();
+
+        } else {
+            System.out.printf("%nThere is no student in the list!");
+        }
+    }
+
+    public boolean checkIfModule(String name, String moduleName) {
+        if (this.students.get(getIndexNumber(name)).getModules().size() > 0) {
+            return this.students.get(getIndexNumber(name)).getModules().
+                    get(this.students.get(getIndexNumber(name)).
+                            getIndexNumber(moduleName)).getName().
+                    equals(moduleName);
+        } else {
+            return false;
+        }
     }
 
 
@@ -271,12 +360,21 @@ public class GradeTracker {
         //Scanner input = new Scanner(System.in);
     }
 
+
+
+
+
+
+
+
+
+
     // Commonly used methods
     // Gets Student name
     public String getStudentName() {
         Scanner input = new Scanner(System.in);
         // Ask user for name of student
-        System.out.print("Please enter student's name: ");
+        System.out.print("Enter student's name: ");
         return input.nextLine();
     }
 
@@ -284,7 +382,13 @@ public class GradeTracker {
     public String getStudentID() {
         Scanner input = new Scanner(System.in);
         // Ask user for studentID of student
-        System.out.print("Please enter studentID number: ");
+        System.out.print("Enter studentID number: ");
+        return input.nextLine();
+    }
+
+    public String getModuleName() {
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter Module Name: ");
         return input.nextLine();
     }
 
@@ -300,22 +404,6 @@ public class GradeTracker {
             }
         }
         return index;
-    }
-
-    // Checks if the student exist in the Students Array List if so, return true if not returns false
-    public boolean checkIfStudent(String name, String studentID) {
-        if (this.students.size() > 0) {
-            for (Student student : students) {
-                if (student.getName().equals(name) && student.getStudentID().equals(studentID)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean checkIfModule(String name) {
-        return this.students.get(getIndexNumber(name)).getModules().size() > 0;
     }
 }
 
