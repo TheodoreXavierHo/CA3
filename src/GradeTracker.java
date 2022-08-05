@@ -23,7 +23,7 @@ public class GradeTracker {
                     "2. Module Management%n" +
                     "3. Assessment Management%n" +
                     "4. End Programme%n" +
-                    "> "
+                    "Enter Choice: "
             );
 
             choice = input.nextInt();
@@ -60,7 +60,7 @@ public class GradeTracker {
                     "3. Calculate Student's GPA%n" +
                     "4. View all Students%n" +
                     "5. Return to Main Menu%n" +
-                    "> "
+                    "Enter Choice: "
             );
 
             subChoice = input.nextInt();
@@ -173,7 +173,7 @@ public class GradeTracker {
                     "4. Calculate Student's grade for module%n" +
                     "5. Display all Student's modules%n" +
                     "6. Return to Main Menu%n" +
-                    "> "
+                    "Enter Choice: "
             );
 
             subChoice = input.nextInt();
@@ -354,18 +354,48 @@ public class GradeTracker {
     }
 
 
-
-
+    // Assessment Management & Methods
     public void assessmentManagementOptions() {
-        //Scanner input = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
+        int subChoice = 0;
+        while(subChoice !=5) {
+            System.out.printf(
+                    "%nStudent Management Options:%n" +
+                            "1. Create New Student%n" +
+                            "2. Delete New Students%n" +
+                            "3. Calculate Student's GPA%n" +
+                            "4. View all Students%n" +
+                            "5. Return to Main Menu%n" +
+                            "Enter Choice: "
+            );
+
+            subChoice = input.nextInt();
+
+            switch (subChoice) {
+                case 1:
+                    System.out.println();
+                    addNewStudent();
+                    break;
+                case 2:
+                    System.out.println();
+                    deleteStudent();
+                    break;
+                case 3:
+                    System.out.println();
+                    calculateStudentGPA();
+                    break;
+                case 4:
+                    System.out.println();
+                    viewAllStudentDetails();
+                    break;
+                default:
+                    if (subChoice != 5) {
+                        System.out.printf("%nPlease select the correct option");
+                    }
+                    break;
+            }
+        }
     }
-
-
-
-
-
-
-
 
 
 
@@ -407,72 +437,6 @@ public class GradeTracker {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*.
-    public static int getIndexNumber(String name, ArrayList<Assessment> assessments) {
-        int index = -1;
-        for (int x = 0; x < (assessments.size()); x++) {
-            if ((assessments.get(x).getName()).equals(name)) {
-                index = x;
-                break;
-            }
-        }
-
-        return index;
-    }
-}
-*/
-
-/*.
-Have it when running the getIndexNumber to have a check if getIndexNumber is -1;
-throw an IllegalArgumentException or ask the user to retype in the name or there is no
-user by that name.
-
-if (getIndexNumber(name, assessments) == -1) {
-    throw new IllegalArgumentException("There is no user by that name");
-    // Or something like this
-}
-*/
 
 /* Test Code.
    To be removed after released version 1.0
