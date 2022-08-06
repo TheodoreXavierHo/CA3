@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class GradeTracker {
@@ -10,21 +11,19 @@ public class GradeTracker {
 
     public static void run() {
         System.out.printf("Welcome to the Student Tracker Application.%n%n");
-        // Wrote the bottom as a slight joke.
-        /*.
-        String sWelcome = "Welcome";
-        String sTo = "to";
-        String sThe = "the";
-        String sStudent = "Student";
-        String sTracker = "Tracker";
-        String sApplication = "Application";
-        System.out.printf("%s %s %s %s %s %s.%n%n",
-                sWelcome, sTo, sThe, sStudent, sTracker, sApplication);
-        */
         Scanner input = new Scanner(System.in);
         GradeTracker gradeTracker = new GradeTracker();
 
         int choice = 0;
+
+        gradeTracker.students.add(new Student("Theodore", "12345"));
+        gradeTracker.students.get(gradeTracker.getIndexNumber("Theodore")).
+                setModules("PF", "PF01", "Java", 100);
+        gradeTracker.students.
+                get(gradeTracker.getIndexNumber("Theodore")).
+                getModules().get(
+                        gradeTracker.getIndexNumber("PF01")
+                ).setAssessments("CA1", "CT", 100, 100);
 
         while (choice != 4) {
             System.out.printf(
@@ -35,8 +34,14 @@ public class GradeTracker {
                     "4. End Programme%n" +
                     "Enter Choice: "
             );
+            try {
+                choice = input.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a valid number");
+                run();
+            }
 
-            choice = input.nextInt();
+            // choice = input.nextInt();
 
             switch (choice) {
                 case 1:
@@ -50,7 +55,7 @@ public class GradeTracker {
                     break;
                 default:
                     if (choice != 4) {
-                        System.out.println("Please select the correct option");
+                        System.out.println("Please select a correct option");
                     }
                     break;
             }
@@ -73,7 +78,12 @@ public class GradeTracker {
                     "Enter Choice: "
             );
 
-            subChoice = input.nextInt();
+            try {
+                subChoice = input.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Please enter a valid number");
+                studentManagementOptions();
+            }
 
             switch (subChoice) {
                 case 1:
@@ -108,6 +118,10 @@ public class GradeTracker {
         // Check if student already exists
         if (!checkIfStudent(name,studentID)) {
             this.students.add(new Student(name, studentID));
+            System.out.println("Name - Student ID");
+            System.out.printf("%s - %s%n", this.students.get(getIndexNumber(name)).getName(),
+                    this.students.get(getIndexNumber(name)).getStudentID());
+            System.out.println();
             System.out.printf("%nStudent Added Successfully");
         } else {
             System.out.printf("%nStudent already exist!");
@@ -125,7 +139,7 @@ public class GradeTracker {
                 this.students.remove(getIndexNumber(name));
                 System.out.printf("%nStudent Removed Successfully");
             } else {
-                System.out.printf("%nStudent dose not exist!");
+                System.out.printf("%nStudent does not exist!");
             }
             System.out.println();
         } else {
@@ -144,7 +158,7 @@ public class GradeTracker {
                 System.out.printf("%n%s's GPA is: %.2f", name,
                         this.students.get(getIndexNumber(name)).getGPA());
             } else {
-                System.out.printf("%nStudent dose not exist!");
+                System.out.printf("%nStudent does not exist!");
             }
             System.out.println();
         } else {
@@ -154,6 +168,7 @@ public class GradeTracker {
     }
 
     public void viewAllStudentDetails() {
+        System.out.println("Name - Student ID");
         for (int i = 0; i < this.students.size(); i++) {
             System.out.printf("%d: %s - %s%n", i+1, this.students.get(i).getName(),
                     this.students.get(i).getStudentID());
@@ -249,7 +264,7 @@ public class GradeTracker {
                         get(getIndexNumber(name)).getIndexNumber(moduleName));
 
             } else {
-                System.out.printf("%nStudent dose not exist!");
+                System.out.printf("%nStudent does not exist!");
             }
         } else {
             System.out.printf("%nThere is no student in the list!");
@@ -276,7 +291,7 @@ public class GradeTracker {
                     System.out.println("There is no modules assign to this student!");
                 }
             } else {
-                System.out.printf("%nStudent dose not exist!");
+                System.out.printf("%nStudent does not exist!");
             }
             System.out.println();
         } else {
@@ -301,7 +316,7 @@ public class GradeTracker {
                     System.out.println("There is no modules assign to this student!");
                 }
             } else {
-                System.out.printf("%nStudent dose not exist!");
+                System.out.printf("%nStudent does not exist!");
             }
             System.out.println();
 
@@ -326,7 +341,7 @@ public class GradeTracker {
                     System.out.println("There is no modules assign to this student!");
                 }
             } else {
-                System.out.printf("%nStudent dose not exist!");
+                System.out.printf("%nStudent does not exist!");
             }
             System.out.println();
 
@@ -349,7 +364,7 @@ public class GradeTracker {
                     this.students.get(getIndexNumber(name)).getAllModules();
                 }
             } else {
-                System.out.printf("%nStudent dose not exist!");
+                System.out.printf("%nStudent does not exist!");
             }
             System.out.println();
 
@@ -462,7 +477,7 @@ public class GradeTracker {
                     System.out.println("There is no modules assign to this student!");
                 }
             } else {
-                System.out.printf("%nStudent dose not exist!");
+                System.out.printf("%nStudent does not exist!");
             }
             System.out.println();
 
@@ -495,7 +510,7 @@ public class GradeTracker {
                     System.out.println("There is no modules assign to this student!");
                 }
             } else {
-                System.out.printf("%nStudent dose not exist!");
+                System.out.printf("%nStudent does not exist!");
             }
             System.out.println();
 
@@ -590,7 +605,7 @@ public class GradeTracker {
                     System.out.println("There is no modules assign to this student!");
                 }
             } else {
-                System.out.printf("%nStudent dose not exist!");
+                System.out.printf("%nStudent does not exist!");
             }
             System.out.println();
 
@@ -628,7 +643,7 @@ public class GradeTracker {
                     System.out.println("There is no modules assign to this student!");
                 }
             } else {
-                System.out.printf("%nStudent dose not exist!");
+                System.out.printf("%nStudent does not exist!");
             }
             System.out.println();
 
