@@ -1,9 +1,9 @@
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class GradeTracker {
     private final ArrayList<Student> students = new ArrayList<>();
+    public static final Scanner input = new Scanner(System.in);
     public static void main(String[] args) {
         // Runs the programme and prints the options
         run();
@@ -11,7 +11,6 @@ public class GradeTracker {
 
     public static void run() {
         System.out.printf("Welcome to the Student Tracker Application.%n%n");
-        Scanner input = new Scanner(System.in);
         GradeTracker gradeTracker = new GradeTracker();
 
         int choice = 0;
@@ -26,22 +25,14 @@ public class GradeTracker {
                 ).setAssessments("CA1", "CT", 100, 100);
 
         while (choice != 4) {
-            System.out.printf(
+            choice = nextInt(String.format(
                     "%nPlease select the following menu options:%n" +
                     "1. Student Management%n" +
                     "2. Module Management%n" +
                     "3. Assessment Management%n" +
                     "4. End Programme%n" +
-                    "Enter Choice: "
-            );
-            try {
-                choice = input.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("Please enter a valid number");
-                run();
-            }
+                    "Enter Choice: "));
 
-            // choice = input.nextInt();
 
             switch (choice) {
                 case 1:
@@ -65,25 +56,17 @@ public class GradeTracker {
 
     // Student Management & Methods
     public void studentManagementOptions() {
-        Scanner input = new Scanner(System.in);
         int subChoice = 0;
         while(subChoice != 5) {
-            System.out.printf(
+
+            subChoice = nextInt(String.format(
                     "%nStudent Management Options:%n" +
                     "1. Create New Student%n" +
                     "2. Delete New Students%n" +
                     "3. Calculate Student's GPA%n" +
                     "4. View all Students%n" +
                     "5. Return to Main Menu%n" +
-                    "Enter Choice: "
-            );
-
-            try {
-                subChoice = input.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("Please enter a valid number");
-                studentManagementOptions();
-            }
+                    "Enter Choice: "));
 
             switch (subChoice) {
                 case 1:
@@ -191,10 +174,9 @@ public class GradeTracker {
 
     // Module Management & Methods
     public void moduleManagementOptions() {
-        Scanner input = new Scanner(System.in);
         int subChoice = 0;
         while(subChoice != 6) {
-            System.out.printf(
+            subChoice = nextInt(String.format(
                     "%nModule Management Options:%n" +
                     "1. Add modules to student%n" +
                     "2. Remove modules from student%n" +
@@ -203,9 +185,7 @@ public class GradeTracker {
                     "5. Display all Student's modules%n" +
                     "6. Return to Main Menu%n" +
                     "Enter Choice: "
-            );
-
-            subChoice = input.nextInt();
+            ));
 
             switch (subChoice) {
                 case 1:
@@ -238,7 +218,6 @@ public class GradeTracker {
     }
 
     public void addModule() {
-        Scanner input = new Scanner(System.in);
         String name = getStudentName();
         String studentID = getStudentID();
         if (students.size() > 0) {
@@ -392,21 +371,17 @@ public class GradeTracker {
 
     // Assessment Management & Methods
     public void assessmentManagementOptions() {
-        Scanner input = new Scanner(System.in);
         int subChoice = 0;
         while(subChoice != 5) {
-            System.out.printf(
+            subChoice = nextInt(String.format(
                     "%nAssessment Management Options:%n" +
-                            "1. Add any number of Assessments to a Module " +
-                            "that is assigned to a student%n" +
-                            "2. Remove any Assessment in a Module assigned to a student%n" +
-                            "3. Set or Remove marks from Assessment%n" +
-                            "4. Display all assessment for a module taken by a student%n" +
-                            "5. Return to Main Menu%n" +
-                            "Enter Choice: "
-            );
-
-            subChoice = input.nextInt();
+                    "1. Add any number of Assessments to a Module that is assigned to a student%n" +
+                    "2. Remove any Assessment in a Module assigned to a student%n" +
+                    "3. Set or Remove marks from Assessment%n" +
+                    "4. Display all assessment for a module taken by a student%n" +
+                    "5. Return to Main Menu%n" +
+                    "Enter Choice: "
+            ));
 
             switch (subChoice) {
                 case 1:
@@ -435,7 +410,6 @@ public class GradeTracker {
     }
 
     public void addAssessments() {
-        Scanner input = new Scanner(System.in);
         if (this.students.size() > 0) {
             String name = getStudentName();
             String studentID = getStudentID();
@@ -460,7 +434,6 @@ public class GradeTracker {
                             getModules().get(
                                     getIndexNumber(moduleName)
                             ).setAssessments(assessmentName, descriptor, totalMarks, weightage);
-                            //.getAssessments().add(new Assessment(assessmentName, descriptor, totalMarks, weightage));
 
                     System.out.printf("%nTest - Descriptor - Total Achievable Marks - Weightage%n");
                     this.students.
@@ -521,7 +494,6 @@ public class GradeTracker {
     }
 
     public void addOrRemoveMarks() {
-        Scanner input = new Scanner(System.in);
         if (this.students.size() > 0) {
             String name = getStudentName();
             String studentID = getStudentID();
@@ -531,13 +503,13 @@ public class GradeTracker {
             if (checkIfStudent(name,studentID)) {
                 if (checkIfModule(name, moduleName)) {
                     if (checkIfAssessment(name, moduleName, assessmentName)) {
-                        System.out.printf(
+
+                        int choice = nextInt(String.format(
                                 "%nMarks Setter/Remover%n" +
-                                        "1. Set Marks%n" +
-                                        "2. Remove Marks%n" +
-                                        "3. Quit%n" +
-                                        "Enter: ");
-                        int choice = input.nextInt();
+                                "1. Set Marks%n" +
+                                "2. Remove Marks%n" +
+                                "3. Quit%n" +
+                                "Enter: "));
 
                         switch (choice) {
                             case 1:
@@ -676,7 +648,6 @@ public class GradeTracker {
     // Commonly used methods
     // Gets Student name
     public String getStudentName() {
-        Scanner input = new Scanner(System.in);
         // Ask user for name of student
         System.out.print("Enter student's name: ");
         return input.nextLine();
@@ -684,7 +655,6 @@ public class GradeTracker {
 
     // Gets Student ID
     public String getStudentID() {
-        Scanner input = new Scanner(System.in);
         // Ask user for studentID of student
         System.out.print("Enter studentID number: ");
         return input.nextLine();
@@ -692,14 +662,12 @@ public class GradeTracker {
 
     // Gets Module Name
     public String getModuleName() {
-        Scanner input = new Scanner(System.in);
         System.out.print("Enter Module Name: ");
         return input.nextLine();
     }
 
     // Gets Assessment Name
     public String getAssessmentName() {
-        Scanner input = new Scanner(System.in);
         System.out.print("Enter Assessment's Name: ");
         return input.nextLine();
     }
@@ -717,4 +685,28 @@ public class GradeTracker {
         }
         return index;
     }
+
+    // Code Found on https://coderanch.com/t/750095/java/catch-loop-input-mismatch-exception
+    // Used for exception handling when user inputs a wrong data type into a Integer
+    public static int nextInt(String prompt) {
+        System.out.print(prompt);
+        while (!input.hasNextInt()) {
+            System.out.printf("Incorrect format for number%n" +
+                    "Please re-enter number: ");
+            input.next(); // remove and ignore next token
+        }
+        return input.nextInt();
+    }
+    /*. Unused Double Version
+    public static double nextDouble(String prompt) {
+        System.out.print(prompt);
+        while (!input.hasNextDouble()) {
+            System.out.print(
+                    "Incorrect format for number: please try again: ");
+            input.next(); // remove and ignore next token
+        }
+        return input.nextDouble();
+    }
+     */
 }
+
