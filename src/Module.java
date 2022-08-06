@@ -93,7 +93,7 @@ public class Module {
         return gradeLetter;
     }
 
-    public double getGradePoint(String grade) {
+    public static double getGradePoint(String grade) {
         double gp;
         switch (grade) {
             case "A+":

@@ -9,8 +9,9 @@ public class GradeTracker {
     }
 
     public static void run() {
-        // System.out.printf("Welcome to the Student Tracker Application.%n%n");
+        System.out.printf("Welcome to the Student Tracker Application.%n%n");
         // Wrote the bottom as a slight joke.
+        /*.
         String sWelcome = "Welcome";
         String sTo = "to";
         String sThe = "the";
@@ -19,7 +20,7 @@ public class GradeTracker {
         String sApplication = "Application";
         System.out.printf("%s %s %s %s %s %s.%n%n",
                 sWelcome, sTo, sThe, sStudent, sTracker, sApplication);
-
+        */
         Scanner input = new Scanner(System.in);
         GradeTracker gradeTracker = new GradeTracker();
 
@@ -130,6 +131,7 @@ public class GradeTracker {
         } else {
             System.out.printf("%nThere is no student in the list!");
         }
+        System.out.println();
     }
 
     public void calculateStudentGPA() {
@@ -148,6 +150,7 @@ public class GradeTracker {
         } else {
             System.out.printf("%nThere is no student in the list!");
         }
+        System.out.println();
     }
 
     public void viewAllStudentDetails() {
@@ -251,6 +254,7 @@ public class GradeTracker {
         } else {
             System.out.printf("%nThere is no student in the list!");
         }
+        System.out.println();
     }
 
     public void removeModule() {
@@ -278,6 +282,7 @@ public class GradeTracker {
         } else {
             System.out.printf("%nThere is no student in the list!");
         }
+        System.out.println();
     }
 
     public void calculateStudentMarks() {
@@ -303,6 +308,7 @@ public class GradeTracker {
         } else {
             System.out.printf("%nThere is no student in the list!");
         }
+        System.out.println();
     }
 
     public void calculateStudentGrade() {
@@ -327,6 +333,7 @@ public class GradeTracker {
         } else {
             System.out.printf("%nThere is no student in the list!");
         }
+        System.out.println();
     }
 
     public void displayAllStudentModules() {
@@ -349,6 +356,7 @@ public class GradeTracker {
         } else {
             System.out.printf("%nThere is no student in the list!");
         }
+        System.out.println();
     }
 
     public boolean checkIfModule(String name, String moduleName) {
@@ -374,7 +382,7 @@ public class GradeTracker {
         while(subChoice != 5) {
             System.out.printf(
                     "%nAssessment Management Options:%n" +
-                            "1. Add any number of Assessments to a Module" +
+                            "1. Add any number of Assessments to a Module " +
                             "that is assigned to a student%n" +
                             "2. Remove any Assessment in a Module assigned to a student%n" +
                             "3. Set or Remove marks from Assessment%n" +
@@ -461,6 +469,7 @@ public class GradeTracker {
         } else {
             System.out.printf("%nThere is no student in the list!");
         }
+        System.out.println();
     }
 
     public void removeAssessments() {
@@ -493,6 +502,7 @@ public class GradeTracker {
         } else {
             System.out.printf("%nThere is no student in the list!");
         }
+        System.out.println();
     }
 
     public void addOrRemoveMarks() {
@@ -507,7 +517,7 @@ public class GradeTracker {
                 if (checkIfModule(name, moduleName)) {
                     if (checkIfAssessment(name, moduleName, assessmentName)) {
                         System.out.printf(
-                                "Marks Setter/Remover%n" +
+                                "%nMarks Setter/Remover%n" +
                                         "1. Set Marks%n" +
                                         "2. Remove Marks%n" +
                                         "3. Quit%n" +
@@ -516,6 +526,22 @@ public class GradeTracker {
 
                         switch (choice) {
                             case 1:
+                                System.out.println("Marks between 0 to " + this.students.
+                                        get(getIndexNumber(name)).
+                                        getModules().
+                                        get(this.students.
+                                                get(getIndexNumber(name)).
+                                                getIndexNumber(moduleName)
+                                        ).
+                                        getAssessments().
+                                        get(this.students.
+                                                get(getIndexNumber(name)).
+                                                getModules().
+                                                get(this.students.
+                                                        get(getIndexNumber(name)).
+                                                        getIndexNumber(moduleName)
+                                                ).getIndexNumber(assessmentName)
+                                        ).getTotalMarks());
                                 System.out.printf("%nEnter Marks: ");
                                 double marks = input.nextDouble();
 
@@ -571,6 +597,7 @@ public class GradeTracker {
         } else {
             System.out.printf("%nThere is no student in the list!");
         }
+        System.out.println();
     }
 
     public void displayAllStudentModelsAssessments() {
@@ -608,6 +635,7 @@ public class GradeTracker {
         } else {
             System.out.printf("%nThere is no student in the list!");
         }
+        System.out.println();
     }
 
 
@@ -629,7 +657,6 @@ public class GradeTracker {
             return false;
         }
     }
-
 
     // Commonly used methods
     // Gets Student name

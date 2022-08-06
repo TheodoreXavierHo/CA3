@@ -1,7 +1,7 @@
 public class Assessment {
     private String name; // Name of the Assessment (e.g. CA1, CA2, etc.).
     private String description; // The description of the Module
-    //***.private Module module; // A reference to the Module this Assessment belongs to. (Is Not Used)
+    private Module module; // A reference to the Module this Assessment belongs to. (Is Not Used)
     private double marks; // The marks scored for this particular Assessment
     private double totalMarks; // Total possible marks for this Assessment
     private double weightage; // The percentage of marks (out of the overall) that this Assessment carries
@@ -14,30 +14,37 @@ public class Assessment {
         setWeightage(weightage);
     }
 
+    // Get the weighted marks (marks/total marks) of an Assessment
     public double getWeightedMarks() {
         return getMarks()/getTotalMarks();
     }
 
+    // Get Assessment Name
     public String getName() {
         return name;
     }
 
+    // Set Assessment Name
     public void setName(String name) {
         this.name = name;
     }
 
+    // Get the Assessment Description
     public String getDescription() {
         return description;
     }
 
+    // Se the Assessment Description
     public void setDescription(String description) {
         this.description = description;
     }
 
+    // Get Assessment Marks
     public double getMarks() {
         return marks;
     }
 
+    // Set Assessment Marks
     public void setMarks(double marks) {
         if (marks < 0) {
             throw new IllegalArgumentException("Marks set is less than 0. PLease enter a value above 0.");
@@ -49,6 +56,7 @@ public class Assessment {
         }
     }
 
+    // Get total marks possible for the Assessments
     public double getTotalMarks() {
         return totalMarks;
     }
