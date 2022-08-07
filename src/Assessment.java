@@ -56,6 +56,11 @@ public class Assessment {
         }
     }
 
+    public void removeMarks() {
+        this.marks = 0;
+
+    }
+
     // Get total marks possible for the Assessments
     public double getTotalMarks() {
         return totalMarks;

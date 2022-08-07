@@ -15,6 +15,7 @@ public class GradeTracker {
 
         int choice = 0;
 
+        /* Preload temp values. Maybe add an enum to load it... There are a few ways of doing this.
         gradeTracker.students.add(new Student("Theodore", "12345"));
         gradeTracker.students.get(gradeTracker.getIndexNumber("Theodore")).
                 setModules("PF", "PF01", "Java", 100);
@@ -23,6 +24,7 @@ public class GradeTracker {
                 getModules().get(
                         gradeTracker.getIndexNumber("PF01")
                 ).setAssessments("CA1", "CT", 100, 100);
+         */
 
         while (choice != 4) {
             choice = nextInt(String.format(
@@ -116,7 +118,6 @@ public class GradeTracker {
         if (this.students.size() > 0) {
             String name = getStudentName();
             String studentID = getStudentID();
-
             // Check if student already exists
             if (checkIfStudent(name,studentID)) {
                 this.students.remove(getIndexNumber(name));
@@ -151,7 +152,7 @@ public class GradeTracker {
     }
 
     public void viewAllStudentDetails() {
-        System.out.println("Name - Student ID");
+        System.out.println("Index - Name - Student ID");
         for (int i = 0; i < this.students.size(); i++) {
             System.out.printf("%d: %s - %s%n", i+1, this.students.get(i).getName(),
                     this.students.get(i).getStudentID());
@@ -345,8 +346,6 @@ public class GradeTracker {
             } else {
                 System.out.printf("%nStudent does not exist!");
             }
-            System.out.println();
-
         } else {
             System.out.printf("%nThere is no student in the list!");
         }
@@ -513,6 +512,7 @@ public class GradeTracker {
 
                         switch (choice) {
                             case 1:
+                                // Display marks between 0 to total achievable marks
                                 System.out.println("Marks between 0 to " + this.students.
                                         get(getIndexNumber(name)).
                                         getModules().
@@ -529,11 +529,12 @@ public class GradeTracker {
                                                         getIndexNumber(moduleName)
                                                 ).getIndexNumber(assessmentName)
                                         ).getTotalMarks());
-                                System.out.printf("%nEnter Marks: ");
-                                double marks = input.nextDouble();
+
+                                double marks = nextDouble(String.format("%nEnter Marks: "));
 
                                 // Add Marks
-                                this.students.
+                                try {
+                                    this.students.
                                         get(getIndexNumber(name)).
                                         getModules().
                                         get(this.students.
@@ -548,7 +549,11 @@ public class GradeTracker {
                                                         get(getIndexNumber(name)).
                                                         getIndexNumber(moduleName)
                                                 ).getIndexNumber(assessmentName)
-                                        ).setMarks(marks);
+                                        ).setMarks(marks);}
+                                catch (IllegalArgumentException exception) {
+                                    System.out.println("Please enter a valid mark!");
+                                }
+                                System.out.println("Marks Added!");
                                 break;
                             case 2:
                                 // Remove Marks
@@ -558,7 +563,7 @@ public class GradeTracker {
                                         get(this.students.
                                                 get(getIndexNumber(name)).
                                                 getIndexNumber(moduleName)).
-                                        getAssessments().remove(
+                                        getAssessments().get(
                                                 (this.students.
                                                         get(getIndexNumber(name)).
                                                         getModules().
@@ -567,7 +572,8 @@ public class GradeTracker {
                                                                 getIndexNumber(moduleName)
                                                         ).getIndexNumber(assessmentName)
                                                 )
-                                        );
+                                        ).removeMarks();
+                                System.out.println("Marks Removed!");
                                 break;
                         }
                     } else {
@@ -687,7 +693,7 @@ public class GradeTracker {
     }
 
     // Code Found on https://coderanch.com/t/750095/java/catch-loop-input-mismatch-exception
-    // Used for exception handling when user inputs a wrong data type into a Integer
+    // Used for exception handling when user inputs a wrong data type into an Integer
     public static int nextInt(String prompt) {
         System.out.print(prompt);
         while (!input.hasNextInt()) {
@@ -695,9 +701,11 @@ public class GradeTracker {
                     "Please re-enter number: ");
             input.next(); // remove and ignore next token
         }
-        return input.nextInt();
+        int x = input.nextInt();
+        input.nextLine();
+        return x;
     }
-    /*. Unused Double Version
+    // Double Version
     public static double nextDouble(String prompt) {
         System.out.print(prompt);
         while (!input.hasNextDouble()) {
@@ -707,6 +715,4 @@ public class GradeTracker {
         }
         return input.nextDouble();
     }
-     */
 }
-
