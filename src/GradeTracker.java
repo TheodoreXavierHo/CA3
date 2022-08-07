@@ -232,8 +232,7 @@ public class GradeTracker {
                 System.out.print("Enter Descriptor: ");
                 String descriptor = input.nextLine();
 
-                System.out.print("Enter CreditUnits: ");
-                int creditUnits = input.nextInt();
+                int creditUnits = nextInt("Enter CreditUnits: ");
 
                 this.students.get(getIndexNumber(name)).
                         setModules(moduleName, moduleCode, descriptor, creditUnits);
@@ -420,11 +419,9 @@ public class GradeTracker {
             System.out.print("Enter Descriptor: ");
             String descriptor = input.nextLine();
 
-            System.out.print("Enter total achievable marks: ");
-            double totalMarks = input.nextDouble();
+            double totalMarks = nextDouble("Enter total achievable marks: ");
 
-            System.out.print("Enter weightage percent: ");
-            double weightage = input.nextDouble();
+            double weightage = nextDouble("Enter weightage percent: ");
 
             if (checkIfStudent(name,studentID)) {
                 if (checkIfModule(name, moduleName)) {
