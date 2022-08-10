@@ -15,16 +15,6 @@ public class GradeTracker {
 
         int choice = 0;
 
-        /* Preload temp values. Maybe add an enum to load it... There are a few ways of doing this.
-        gradeTracker.students.add(new Student("John Doe", "12345"));
-        gradeTracker.students.get(gradeTracker.getIndexNumber("John Doe")).
-                setModules("PF", "PF01", "Java", 100);
-        gradeTracker.students.
-                get(gradeTracker.getIndexNumber("John Doe")).
-                getModules().get(
-                        gradeTracker.getIndexNumber("PF")
-                ).setAssessments("CA1", "CT", 100, 10);
-         */
         while (choice != 4) {
             choice = nextInt(String.format(
                     "%nPlease select the following menu options:%n" +
