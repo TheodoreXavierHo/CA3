@@ -16,16 +16,15 @@ public class GradeTracker {
         int choice = 0;
 
         /* Preload temp values. Maybe add an enum to load it... There are a few ways of doing this.
-        gradeTracker.students.add(new Student("Theodore", "12345"));
-        gradeTracker.students.get(gradeTracker.getIndexNumber("Theodore")).
+        gradeTracker.students.add(new Student("John Doe", "12345"));
+        gradeTracker.students.get(gradeTracker.getIndexNumber("John Doe")).
                 setModules("PF", "PF01", "Java", 100);
         gradeTracker.students.
-                get(gradeTracker.getIndexNumber("Theodore")).
+                get(gradeTracker.getIndexNumber("John Doe")).
                 getModules().get(
-                        gradeTracker.getIndexNumber("PF01")
-                ).setAssessments("CA1", "CT", 100, 100);
+                        gradeTracker.getIndexNumber("PF")
+                ).setAssessments("CA1", "CT", 100, 10);
          */
-
         while (choice != 4) {
             choice = nextInt(String.format(
                     "%nPlease select the following menu options:%n" +
@@ -46,6 +45,21 @@ public class GradeTracker {
                 case 3:
                     gradeTracker.assessmentManagementOptions();
                     break;
+                case 100: // Secret Menu for unused methods
+                    try{
+                        System.out.println("Secret Menu");
+                        System.out.println("\nUsed for unused things");
+                        double overallTotalMarks = gradeTracker.students.get(0).getModules().
+                                get(0).getOverallTotalMarks();
+                        System.out.println("Overall total marks for index 0: "
+                                + overallTotalMarks);
+                        double weightageMarks = gradeTracker.students.get(0).getModules().get(0).
+                                getAssessments().get(0).getWeightageMarks();
+                        System.out.println("Weightage Marks for index 0: "
+                                + weightageMarks);
+                    } catch (Exception exception) {
+                        System.out.println("Well... Loading Failed?");
+                    }
                 default:
                     if (choice != 4) {
                         System.out.println("Please select a correct option");
@@ -221,34 +235,86 @@ public class GradeTracker {
     public void addModule() {
         String name = getStudentName();
         String studentID = getStudentID();
-        if (students.size() > 0) {
-            if (checkIfStudent(name, studentID)) {
-                System.out.printf("%nEnter Module Name: ");
-                String moduleName = input.nextLine();
 
-                System.out.print("Enter Module Code: ");
+        int subChoice = nextInt("Would you like to\n" +
+                "1. Add custom module\n" +
+                "2. Add predefined module\n" +
+                "3. Exit\n" +
+                "Enter: ");
+
+        switch (subChoice) {
+            case 1:
+                if (students.size() > 0) {
+                    if (checkIfStudent(name, studentID)) {
+                        System.out.printf("%nEnter Module Name: ");
+                        String moduleName = input.nextLine();
+
+                        System.out.print("Enter Module Code: ");
+                        String moduleCode = input.nextLine();
+
+                        System.out.print("Enter Descriptor: ");
+                        String descriptor = input.nextLine();
+
+                        int creditUnits = nextInt("Enter CreditUnits: ");
+
+                        this.students.get(getIndexNumber(name)).
+                                setModules(moduleName, moduleCode, descriptor, creditUnits);
+
+                        System.out.printf("%nProgramme - Module Code - Descriptor - Credit Units%n");
+                        this.students.get(getIndexNumber(name)).
+                                getModuleList(this.students.
+                                        get(getIndexNumber(name)).getIndexNumber(moduleName));
+
+                    } else {
+                        System.out.printf("%nStudent does not exist!");
+                    }
+                } else {
+                    System.out.printf("%nThere is no student in the list!");
+                }
+                System.out.println();
+                break;
+            case 2:
+                System.out.println("\nIndex : Name : Module Code : Description : Credits Units");
+                int x = 1;
+                for (PreDefMod mod : PreDefMod.values()) {
+                    System.out.printf("%d: %s, %s, %s, %d%n", (x),
+                            mod.getName(),mod.getModuleCode(),
+                            mod.getDescription(), mod.getCreditUnits());
+                    x++;
+                }
+                System.out.print("\nEnter Module Code of the module you would like to add: ");
                 String moduleCode = input.nextLine();
 
-                System.out.print("Enter Descriptor: ");
-                String descriptor = input.nextLine();
+                boolean checkIfModAdded = false;
+                for (PreDefMod addMod : PreDefMod.values()) {
+                    if (moduleCode.equals(addMod.getModuleCode())) {
+                        this.students.get(getIndexNumber(name)).setModules(
+                                addMod.getName(), addMod.getModuleCode(),
+                                addMod.getDescription(), addMod.getCreditUnits());
 
-                int creditUnits = nextInt("Enter CreditUnits: ");
+                        this.students.
+                                get(getIndexNumber(name)).
+                                getModules().get(
+                                        getIndexNumber(addMod.getName())
+                                ).setAssessmentsObj(addMod.getAssessments());
 
-                this.students.get(getIndexNumber(name)).
-                        setModules(moduleName, moduleCode, descriptor, creditUnits);
-
-                System.out.printf("%nProgramme - Module Code - Descriptor - Credit Units%n");
-                this.students.get(getIndexNumber(name)).
-                        getModuleList(this.students.
-                        get(getIndexNumber(name)).getIndexNumber(moduleName));
-
-            } else {
-                System.out.printf("%nStudent does not exist!");
-            }
-        } else {
-            System.out.printf("%nThere is no student in the list!");
+                        System.out.printf("%nProgramme - Module Code - Descriptor - Credit Units%n");
+                        this.students.get(getIndexNumber(name)).
+                                getModuleList(this.students.
+                                        get(getIndexNumber(name)).getIndexNumber(addMod.getName()));
+                        checkIfModAdded = true;
+                    }
+                }
+                if (!checkIfModAdded) {
+                    System.out.println("Please enter a valid module code.");
+                }
+                break;
+            case 3:
+                break;
+            default:
+                System.out.println("Please input a value between 1 - 3");
+                break;
         }
-        System.out.println();
     }
 
     public void removeModule() {
@@ -264,7 +330,6 @@ public class GradeTracker {
                             removeModules(this.students.get(getIndexNumber(name))
                                     .getIndexNumber(moduleName));
 
-                    this.students.remove(getIndexNumber(name));
                     System.out.printf("%nModule Removed Successfully");
                 } else {
                     System.out.println("There is no modules assign to this student!");
@@ -425,23 +490,41 @@ public class GradeTracker {
 
             if (checkIfStudent(name,studentID)) {
                 if (checkIfModule(name, moduleName)) {
-                    this.students.
-                            get(getIndexNumber(name)).
-                            getModules().get(
-                                    getIndexNumber(moduleName)
-                            ).setAssessments(assessmentName, descriptor, totalMarks, weightage);
-
-                    System.out.printf("%nTest - Descriptor - Total Achievable Marks - Weightage%n");
-                    this.students.
+                    double totalWeightage = 0;
+                    for (Assessment assessments : this.students.
                             get(getIndexNumber(name)).
                             getModules().get(getIndexNumber(moduleName)).
-                            getAssessmentList(
-                                    this.students.
-                                    get(getIndexNumber(name)).
-                                    getModules().
-                                    get(getIndexNumber(moduleName)).
-                                    getIndexNumber(assessmentName)
-                            );
+                            getAssessments()) {
+                        totalWeightage += assessments.getWeightage();
+                        }
+                    if (!((weightage += totalWeightage) > 100)) {
+                        this.students.
+                                get(getIndexNumber(name)).
+                                getModules().get(
+                                        getIndexNumber(moduleName)
+                                ).setAssessments(assessmentName, descriptor, totalMarks, weightage);
+
+                        System.out.printf("%nTest - Descriptor - Total Achievable Marks - Weightage%n");
+                        this.students.
+                                get(getIndexNumber(name)).
+                                getModules().get(getIndexNumber(moduleName)).
+                                getAssessmentList(
+                                        this.students.
+                                        get(getIndexNumber(name)).
+                                        getModules().
+                                        get(getIndexNumber(moduleName)).
+                                        getIndexNumber(assessmentName)
+                                );
+                        } else {
+                        double maxWeightage = 100 - totalWeightage;
+                        if (maxWeightage <= 0) {
+                            System.out.println("\nMaximum weightage has already been achieve,\n" +
+                                    "Please remove existing assessments to add new assessments");
+                        } else {
+                            System.out.printf("%nThe weightage entered is not valid!%n" +
+                                    "Please enter a value >= %.0f", maxWeightage);
+                        }
+                    }
                 } else {
                     System.out.println("There is no modules assign to this student!");
                 }

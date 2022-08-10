@@ -6,7 +6,7 @@ public class Module {
     private String description; // The description of the Module
     private int creditUnits; // How many credits the Module carries
     // A list of Assessments that the module uses to determine the final grade of the student (e.g. CA1, CA2, CA3 etc.)
-    private final ArrayList<Assessment> assessments = new ArrayList<>();
+    private ArrayList<Assessment> assessments = new ArrayList<>();
 
     public Module(String name, String moduleCode, String description, int creditUnits) {
         setName(name);
@@ -135,13 +135,17 @@ public class Module {
         this.assessments.add(new Assessment(name, description, totalMarks, weightage));
     }
 
+    public void setAssessmentsObj(ArrayList<Assessment> assessments) {
+        this.assessments = assessments;
+    }
+
     public void getAllAssessments() {
-        this.assessments.forEach(assessment -> System.out.printf("%s - %s - %.0f - %.0f%%", assessment.getName(),
+        this.assessments.forEach(assessment -> System.out.printf("%s - %s - %.0f - %%%.0f%n", assessment.getName(),
                 assessment.getDescription(), assessment.getTotalMarks(), assessment.getWeightage()));
     }
 
     public void getAssessmentList(int index) {
-        System.out.printf("%s - %s - %.1f - %.0f%n", this.assessments.get(index).getName(),
+        System.out.printf("%s - %s - %.1f - %%%.0f%n", this.assessments.get(index).getName(),
                 this.assessments.get(index).getDescription(),
                 this.assessments.get(index).getTotalMarks(),
                 this.assessments.get(index).getWeightage());
