@@ -33,7 +33,7 @@ public enum PreDefMod {
     private final int creditUnits;
     private final ArrayList<Assessment> assessments = new ArrayList<>();
 
-    // enum constructor
+    // Enum constructor
     PreDefMod(String name, String moduleCode,
               String description, int creditUnits) {
         this.name = name;
