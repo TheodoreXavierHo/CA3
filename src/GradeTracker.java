@@ -37,7 +37,7 @@ public class GradeTracker {
                     break;
                 case 100: // Secret Menu for unused methods
                     try{
-                        System.out.println("Secret Menu");
+                        System.out.println("\nSecret Menu");
                         System.out.println("\nUsed for unused things");
                         double overallTotalMarks = gradeTracker.students.get(0).getModules().
                                 get(0).getOverallTotalMarks();
